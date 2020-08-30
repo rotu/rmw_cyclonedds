@@ -34,3 +34,12 @@ jobs:
         vcs-repo-file-url: >
           https://raw.githubusercontent.com/ros2/ros2/${{ matrix.repos_branch }}/ros2.repos
           https://raw.githubusercontent.com/${{github.repository}}/${{github.sha}}/.github/resources/suppress_other_rmw.repos
+    - name: upload failed build/test
+      uses: actions/upload-artifact@v2
+      with:
+        name: failed-build-${{matrix.os}}
+        path: |
+          ros_ws/build/
+          ros_ws/log/
+      if: always()
+      
